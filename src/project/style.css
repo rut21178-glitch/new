@@ -1,0 +1,267 @@
+/* בסיסי: גופן וכיוון כתיבה */
+body, .hebrewCalender, .form-box, .my-form, .main-container {
+  font-family: Arial, sans-serif;
+  direction: rtl; /* כיוון מימין לשמאל */
+}
+
+/* --- Hebrew Calendar Container --- */
+.hebrewCalender {
+  max-width: 90%;
+  margin: 20px auto; /* מרכז אוטומטי עם רווחים אנכיים */
+}
+
+/* --- חודש בלוח שנה --- */
+.month {
+  background-color: #fefefe;
+  padding: 10px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* צל עדין */
+  overflow: hidden; /* למנוע גלילה לא רצויה */
+  display: flex;
+  flex-wrap: wrap; /* אריזת שורות מרובות */
+  flex-direction: row;
+  direction: rtl; /* יישור לימין */
+}
+
+/* כותרת חודש - תופסת שורה מלאה */
+.month h1 {
+  width: 100%;
+  text-align: center;
+  margin: 10px 0 20px; /* רווחים למעלה ולמטה */
+  font-size: 24px;
+}
+
+/* כותרות ימי השבוע */
+.month h2 {
+  width: calc(100% / 7); /* מחלק רוחב שווה ל-7 */
+  text-align: center;
+  font-weight: 700;
+  color: #333;
+  padding: 10px 0;
+  margin: 0;
+  border-bottom: 2px solid #ccc; /* קו תחתון */
+  display: inline-block;
+}
+
+/* יום בודד בלוח */
+.day {
+  box-sizing: border-box;
+  width: calc(100% / 7); /* רוחב כמו כותרות */
+  height: 105px; /* גובה אחיד */
+  border: 1px solid #ddd;
+  padding: 8px;
+  background-color: #fff;
+  margin-bottom: 8px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* למנוע גלילה פנימית */
+}
+
+/* יום ריק (למילוי רווחים) */
+.day.empty {
+  border: none;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* כותרת יום בתוך תא */
+.day h4 {
+  margin: 0 0 6px 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: inherit; /* יורש צבע מההורה */
+}
+
+/* מיכל אירועים בתוך יום */
+.events-container {
+  flex-grow: 1; /* תופס את שאר המקום פנוי */
+  overflow-y: auto; /* גלילה אנכית */
+  max-height: 120px; /* גובה מקסימלי */
+  padding-right: 4px; /* ריווח למניעת חיתוך גלילה */
+}
+
+/* עיצוב גלילה חלקה למיכל האירועים */
+.events-container::-webkit-scrollbar {
+  width: 8px;
+}
+.events-container::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 4px;
+}
+.events-container::-webkit-scrollbar-thumb {
+  background: #bbb;
+  border-radius: 4px;
+}
+
+/* אירוע בודד */
+.event {
+  background-color: #f0f0f0;
+  border-radius: 12px;
+  padding: 6px 10px;
+  margin-bottom: 6px;
+  font-size: 14px;
+  line-height: 1.3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* מוסיף רווח בין הטקסט ל-<span> */
+  color: #333;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  cursor: default;
+}
+
+
+/* --- כפתורים כלליים --- */
+button {
+  background-color: #f7f7f7;
+  border: 1.5px solid #888;
+  border-radius: 8px;
+  padding: 8px 14px;
+  margin: 6px 4px;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #e2e2e2;
+}
+
+/* --- Form Box (טופס) --- */
+.form-box, .my-form {
+  width: 320px;
+  margin: 20px auto 40px;
+  padding: 20px 24px;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-sizing: border-box;
+  border: 2px solid transparent; /* עבור my-form מעודכן למטה */
+}
+
+.my-form {
+  border-color: #ccc;
+  gap: 0;
+}
+
+/* שדות קלט בטופס */
+.form-box select,
+.form-box input[type="file"],
+.form-box input[type="text"],
+.form-box input[placeholder],
+.form-box button,
+.my-form input[type="text"],
+.my-form input[type="color"] {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: white;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+  display: block;
+}
+
+/* צבעים - קלט מיוחד */
+.my-form input[type="color"] {
+  width: 50px;
+  height: 40px;
+  margin: 0 auto 20px auto;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+}
+
+/* כפתור בטופס */
+.form-box button {
+  background-color: #c23a89;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-bottom: 0;
+}
+
+.form-box button:hover {
+  background-color: #388e3c;
+}
+
+/* --- Main Container --- */
+.main-container {
+  max-width: 600px;
+  margin: 20px auto;
+  font-family: Arial, sans-serif;
+  direction: rtl;
+  text-align: center;
+}
+
+/* רווח בין כל ילדים ישירים */
+.main-container > * {
+  margin-bottom: 15px;
+}
+
+/* סלקט בתוך המיין */
+.main-container select {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1.5px solid #888;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+  margin-bottom: 0;
+}
+
+.main-container select:hover,
+.main-container select:focus {
+  border-color: #555;
+  outline: none;
+}
+
+/* כפתור במיין */
+.main-container button {
+  padding: 10px 20px;
+  margin: 10px 5px;
+}
+
+/* שורה עם כפתור וסלקט */
+.select-button-row {
+  display: flex;
+  gap: 10px; /* רווח בין הסלקט לכפתור */
+  justify-content: center; /* מרכז אופקי */
+  align-items: center; /* יישור אנכי */
+  margin-bottom: 15px; /* רווח מתחת */
+}
+
+.select-button-row select {
+  flex-grow: 1; /* הסלקט יתפוס את כל הרוחב הפנוי */
+  width: auto; /* ביטול רוחב מלא */
+  margin-bottom: 0; /* ביטול מרווח תחתון */
+}
+
+.select-button-row button {
+  margin: 0; /* ביטול מרווחים כדי להתאים לשורה */
+  white-space: nowrap; /* מונע שבירת טקסט בכפתור */
+}
+ span{
+  margin-right: 8px;
+  color: red;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0 6px;
+  transition: background-color 0.2s ease;
+}
+
+span:hover {
+  background-color: rgba(255, 0, 0, 0.1);
+  border-radius: 6px;
+}
